@@ -63,22 +63,37 @@ The system uses **Groq's high-speed LLM models** for fast processing, **Google P
 
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    MAIN ORCHESTRATOR                    │
-└──────────┬──────────────────────────────────────────────┘
-           │
-    ┌──────┴──────┬────────────┬─────────────┐
-    │             │            │             │
-    ▼             ▼            ▼             ▼
-┌────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
-│Discovery │ Copywriter │ Outreach │ │  Sender  │
-│  Agent   │   Agent    │ Manager  │ │  Agent   │
-│          │            │          │ │          │
-│ • Google │ • Groq LLM │ • Tool   │ │ • Gmail  │
-│   Places │ • French   │   Caller │ │   SMTP   │
-│ • Scrape │   Writing  │ • Handoff│ │ • Format │
-│   Data   │ • Formal   │   Logic  │ │ • Send   │
-└────────┘ └──────────┘ └──────────┘ └──────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    TWO-STAGE SYSTEM                         │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                ┌──────┴──────────────┐
+                │                     │
+         ┌──────▼──────┐       ┌──────▼────────────────┐
+         │  Discovery  │       │  Outreach Pipeline    │
+         │   Agent     │─────▶│ (Iterative Loop)      │
+         │             │       │                       │
+         │ • Google    │       │ ┌─────────────────┐   │
+         │   Places    │       │ │ Outreach Manager│◀─┼── prospects.json
+         │ • Scraping  │       │ │                 │   │
+         │ • Contact   │       │ │ • Calls         │   │
+         │   Extract   │       │ │   Copywriter    │   │
+         │ • Website   │       │ │ • Handoff to    │   │
+         │   Check     │       │ │   Sender Agent  │   │
+         └──────┬──────┘       │ └─────────────────┘   │
+                │              │     │                 │
+                │              │     ▼                 │
+                ▼              │  ┌───────────────┐    │
+         data/                 │  │  Sender       │    │
+         prospects.json        │  │  Agent        │    │
+                               │  │               │    │
+                               │  │ • Personalize │    │
+                               │  │ • Format      │    │
+                               │  │ • Send        │    │
+                               │  │               │    │
+                               │  └───────────────┘    │
+                               └───────────────────────┘
+
 ```
 
 ### Data Flow
