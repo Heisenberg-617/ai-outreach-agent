@@ -61,23 +61,24 @@ The system uses **Groq's high-speed LLM models** for fast processing, **Google P
 
 ### Multi-Agent System
 
+
 ```
-┌───────────────────────────────────────────────────┐
-│                      MAIN ORCHESTRATOR                           │
-└────────────────────────┬──────────────────────────┘
-                                │
-     ┌────────────┬───────┴─────┬───────────┐
-     │                 │                │              │
-     ▼                ▼                ▼              ▼
-┌────────┐  ┌──────────┐ ┌──────────┐ ┌──────────┐
-│Discovery   │   Copywriter   │   Outreach    │    Sender    │
-│  Agent     │   Agent        │   Manager     │    Agent     │
-│            │                │               │              │
-│ • Google   │   • Groq LLM   │ • Tool        │  • Gmail     │
-│   Places   │   • French     │   Caller      │    SMTP      │
-│ • Scrape   │   Writing      │ • Handoff     │  • Format    │
-│   Data     │   • Formal     │   Logic       │  • Send      │
-└────────┘  └──────────┘ └──────────┘ └──────────┘
+┌─────────────────────────────────────────────────────────┐
+│                    MAIN ORCHESTRATOR                    │
+└──────────┬──────────────────────────────────────────────┘
+           │
+    ┌──────┴──────┬────────────┬─────────────┐
+    │             │            │             │
+    ▼             ▼            ▼             ▼
+┌────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
+│Discovery │ Copywriter │ Outreach │ │  Sender  │
+│  Agent   │   Agent    │ Manager  │ │  Agent   │
+│          │            │          │ │          │
+│ • Google │ • Groq LLM │ • Tool   │ │ • Gmail  │
+│   Places │ • French   │   Caller │ │   SMTP   │
+│ • Scrape │   Writing  │ • Handoff│ │ • Format │
+│   Data   │ • Formal   │   Logic  │ │ • Send   │
+└────────┘ └──────────┘ └──────────┘ └──────────┘
 ```
 
 ### Data Flow
